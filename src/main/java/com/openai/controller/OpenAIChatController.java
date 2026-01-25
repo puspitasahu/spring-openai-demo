@@ -1,3 +1,4 @@
+/*
 package com.openai.controller;
 
 import com.openai.service.OpenAIChatService;
@@ -21,3 +22,4 @@ public class OpenAIChatController{
     }
 }
 
+*/

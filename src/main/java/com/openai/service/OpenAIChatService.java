@@ -3,7 +3,7 @@ package com.openai.service;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
-@Service
+/*@Service
 public class OpenAIChatService{
     private final ChatClient chatClient;
 
@@ -18,5 +18,5 @@ public class OpenAIChatService{
                 .content();
 
     }
-}
+}*/
 

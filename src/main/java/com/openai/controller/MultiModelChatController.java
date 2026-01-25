@@ -1,5 +1,6 @@
 package com.openai.controller;
 
+
 import com.openai.service.MultiModelChatService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +16,24 @@ class MultiModelChatController {
     public MultiModelChatController(MultiModelChatService multiModelChatService) {
         this.multiModelChatService = multiModelChatService;
     }
+
     @GetMapping("/chat/openai")
     public String chatWithOpenAI(@RequestParam String message){
-        return multiModelChatService.chatWithOpenAI(message);
-
+        try {
+            return multiModelChatService.chatWithOpenAI(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "OpenAI Error: " + e.getMessage() + "\nCause: " + (e.getCause() != null ? e.getCause().getMessage() : "None");
+        }
     }
 
     @GetMapping("/chat/ollama")
     public String chatWithOllama(@RequestParam String message){
-        return multiModelChatService.chatWithOllama(message);
-
+        try {
+            return multiModelChatService.chatWithOllama(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Ollama Error: " + e.getMessage() + "\nCause: " + (e.getCause() != null ? e.getCause().getMessage() : "None");
+        }
     }
 }

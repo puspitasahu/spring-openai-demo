@@ -4,6 +4,8 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class MultiModelChatService {
     private final ChatClient openAiChatClient;
@@ -22,7 +24,7 @@ public class MultiModelChatService {
                 .content();
 
     }
-    public String chatWithOllama(String message){
+   public String chatWithOllama(String message){
         return ollamaChatClient
                 .prompt(message)
                 .call()

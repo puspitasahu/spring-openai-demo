@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+/*
 @Service
 public class MultiModelChatService {
     private final ChatClient openAiChatClient;
@@ -32,3 +33,4 @@ public class MultiModelChatService {
 
     }
 }
+*/

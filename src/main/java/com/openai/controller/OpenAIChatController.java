@@ -29,6 +29,11 @@ public class OpenAIChatController{
         return messagesRolesDemoService.checkInsuranceV3Policy(message);
     }
 
+    @GetMapping("/guide")
+    public String guideUser(@RequestParam String topic,@RequestParam String level,@RequestParam int points){
+        return messagesRolesDemoService.guideMe(topic,level,points);
+    }
+
 
 }
 

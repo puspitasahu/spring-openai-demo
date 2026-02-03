@@ -16,4 +16,11 @@ public class OrderSupportAIAssistantController{
     public String getOrderSupportResponse(@RequestParam String customerName,@RequestParam String orderId,@RequestParam String customerMessage){
         return aiAssistanceService.assistWithOrderSupport(customerName,orderId,customerMessage);
     }
+
+    @GetMapping("/order-ai-support")
+    public String talkToOrderAISupport(@RequestParam String customerName,@RequestParam String orderId,@RequestParam String customerMessage){
+        return aiAssistanceService.talkToAISupport(customerName,orderId,customerMessage);
+    }
+
+
 }

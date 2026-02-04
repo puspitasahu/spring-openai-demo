@@ -2,9 +2,13 @@ package com.openai.service;
 
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderSupportAIAssistanceService{
@@ -34,7 +38,14 @@ public class OrderSupportAIAssistanceService{
     }
 
     public String talkToAISupport(String customerName,String orderId,String customerMessage){
-        return chatClient.prompt().system(orderSystemPolicyPrompt)
+        return chatClient.prompt()
+                .advisors(
+                        List.of(new SimpleLoggerAdvisor(),
+                        new SafeGuardAdvisor(List.of("password","cvv","otp"),
+                                "For Security Reason ,we never ask such sensitive information please talk to our customer support directly",
+                                1)
+                ))
+                .system(orderSystemPolicyPrompt)
                 .user(promptUserSpec -> promptUserSpec.text(orderUserPrompt)
                         .param("customerName",customerName)
                         .param("orderId",orderId)

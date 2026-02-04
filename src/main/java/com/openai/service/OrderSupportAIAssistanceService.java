@@ -1,6 +1,7 @@
 package com.openai.service;
 
 
+import com.openai.advisor.AuditTokenUsageAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -40,10 +41,12 @@ public class OrderSupportAIAssistanceService{
     public String talkToAISupport(String customerName,String orderId,String customerMessage){
         return chatClient.prompt()
                 .advisors(
-                        List.of(new SimpleLoggerAdvisor(),
+                        List.of(
+                        new SimpleLoggerAdvisor(),
                         new SafeGuardAdvisor(List.of("password","cvv","otp"),
                                 "For Security Reason ,we never ask such sensitive information please talk to our customer support directly",
-                                1)
+                                1),
+                         new AuditTokenUsageAdvisor()
                 ))
                 .system(orderSystemPolicyPrompt)
                 .user(promptUserSpec -> promptUserSpec.text(orderUserPrompt)
